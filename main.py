@@ -1,17 +1,22 @@
+"""Load the sample documents used in the RAG exercises."""
 
 import csv
-import document
-filename = "document/Documenr.csv"
+from pathlib import Path
 
-def load_document():
-    with open (filename , "r" , encoding="utf-8") as file:
-        data = csv.DictReader(file)
+DOCUMENTS_FILE = Path(__file__).resolve().parent / "document" / "Documenr.csv"
 
-        return list(data)
-loader = load_document()
-def doumentcsv():
-    for loader in document:
-         print(document["title"])
-    print(document["content"])
-    print()
-        
+
+def load_document(path: Path = DOCUMENTS_FILE) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as file:
+        return list(csv.DictReader(file))
+
+
+def documentcsv() -> None:
+    for document in load_document():
+        print(document["title"])
+        print(document["content"])
+        print()
+
+
+if __name__ == "__main__":
+    documentcsv()
